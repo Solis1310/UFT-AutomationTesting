@@ -1,0 +1,8 @@
+Set objButton=Browser("index:=0").WebButton("value:=Buscar")
+
+replayType =Setting.WebPackage("ReplayType")
+Setting.WebPackage("ReplayType") = 2
+
+objButton.Click
+
+Setting.WebPackage("ReplayType") = replayType
