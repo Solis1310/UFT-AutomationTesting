@@ -1,0 +1,25 @@
+Dim TableCnt
+Set TableCnt = Browser("index:=0").WebTable("name:=11330651")
+countRows = TableCnt.GetROProperty("rows")
+countCols = TableCnt.GetROProperty("cols")
+bolExitFor=false
+strValorBuscado="Valor a Buscar"
+
+For rowsTbl = 1 to countRows
+	For colsTbl = 1 to countCols
+		TableCnt.RefreshObject
+		strNameCelda = TableCnt.GetCellData(rowsTbl,colsTbl)
+		MsgBox strNameCelda
+		If InStr(1,strNameCelda,strValorBuscado) > 0 Then
+			TableCnt.RefreshObject
+			Set objElement = TableCnt.ChildItem (rowsTbl,colsTbl,"WebElement",0)
+			objElement.Click
+			bolExitFor=true	
+			Exit For
+		End If
+
+	Next
+	If bolExitFor Then
+		Exit for
+	End If
+Next 
