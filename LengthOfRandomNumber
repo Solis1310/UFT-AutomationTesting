@@ -1,0 +1,24 @@
+Dim intRandomNumber
+intRandomNumber=fnRandomNumber(13)
+
+MsgBox intRandomNumber
+
+Function fnRandomNumber(LengthOfRandomNumber)
+
+Dim sMaxVal : sMaxVal = ""
+Dim iLength : iLength = LengthOfRandomNumber
+
+'Find the maximum value for the given number of digits
+For iL = 1 to iLength
+sMaxVal = sMaxVal & "9"
+Next
+sMaxVal = Int(sMaxVal)
+
+'Find Random Value
+Randomize
+iTmp = Int((sMaxVal * Rnd) + 1)
+'Add Trailing Zeros if required
+iLen = Len(iTmp)
+fnRandomNumber1 = iTmp * (10 ^(iLength - iLen))
+ fnRandomNumber=fnRandomNumber1
+End Function
