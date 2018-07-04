@@ -1,5 +1,5 @@
 Dim TableCnt
-Set TableCnt = Browser("index:=0").WebTable("name:=11330651")
+Set TableCnt = Browser("index:=0").WebTable("html id:=Table")
 countRows = TableCnt.GetROProperty("rows")
 countCols = TableCnt.GetROProperty("cols")
 bolExitFor=false
