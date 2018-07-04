@@ -1,0 +1,5 @@
+	    Dim mykeys
+	    Set mykeys=CreateObject("WScript.shell")
+	    mykeys.SendKeys"{ESC}"
+      
+      
