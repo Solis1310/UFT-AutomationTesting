@@ -1,0 +1,11 @@
+Set obBrowser=Description.Create
+obBrowser("micclass").value="Browser"
+
+Set objCount=Desktop.ChildObjects(obBrowser)
+
+	For i=0 to objCount.count-1
+		
+		BrowserName=objCount(i).getroproperty("name")
+		MsgBox BrowserName
+	
+	Next
