@@ -9,3 +9,32 @@ Set objCount=Desktop.ChildObjects(obBrowser)
 		MsgBox BrowserName
 	
 	Next
+
+'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Set oBrowser=Description.Create
+ oBrowser("micclass").Value="Browser"
+ Set oBrowser=Desktop.ChildObjects(oBrowser)
+ totalcount = oBrowser.Count-1
+ 
+ For i=0 to totalcount
+ 
+	 If Browser("micclass:=Browser", "index:="&i).Exist(0) Then 
+		 ohwnd= Browser("micclass:=Browser", "index:=" & i).GetROProperty("hwnd")
+		 name = Browser("hwnd:="&ohwnd).GetROProperty("title")
+		 
+		 Set oBrowser=Browser("hwnd:="&ohwnd)
+		 Set oPage=Description.Create
+		 oPage("micclass").Value="Page"
+		 
+		 Set oPage=Browser("hwnd:="&ohwnd).ChildObjects(oPage)
+		 
+		 For n=0 to oPage.Count-1
+			 If oPage(n).Exist(0) Then
+				 oBrowser.Close
+				 Exit For
+			 End If
+		 Next
+		 
+	 End If
+ Next
