@@ -1,0 +1,167 @@
+Dim strConsecutivoLetras
+strConsecutivoLetras=fnLetrasConsecutivas("NameFile","Global")
+
+MsgBox strConsecutivoLetras
+
+
+
+Function fnLetrasConsecutivas(strColumn, strHoja)
+print DataTable.GetCurrentRow
+strLetras1=fnGeneraLetrasCosecutivas(strColumn, strHoja)
+strLetras2=fnValidaLetrasIguales(strLetras1)
+If strLetras2 <> strLetras1 Then
+	DataTable.SetCurrentRow(DataTable.GetRowCount+1)
+	DataTable.Value(strColumn, strHoja)= strLetras1
+	DataTable.SetCurrentRow(DataTable.GetRowCount)
+	DataTable.Value(strColumn, strHoja)=fnGeneraLetrasCosecutivas 
+	
+Else 
+	DataTable.SetCurrentRow(DataTable.GetRowCount+1)
+	DataTable.Value(strColumn, strHoja)=strLetras1 
+	
+End If
+DataTable.SetCurrentRow(DataTable.GetRowCount)
+fnLetrasConsecutivas=DataTable.Value(strColumn, strHoja)
+End Function
+
+
+Function fnGeneraLetrasCosecutivas(strColumn, strHoja)
+
+DataTable.SetCurrentRow(1)
+cadena=DataTable.Value(strColumn, strHoja)
+
+If cadena="" Then
+	cadena="AAA"
+End If
+
+cadena=Replace(cadena," ","")
+
+	strletra1=mid(cadena,1,1)
+	strletra2=mid(cadena,2,1)
+	strletra3=mid(cadena,3,1)
+	
+	intNumLetraEncontrada= fnBuscaLetra(strletra3)+1
+	cadena =strletra1&strletra2&fnGeneraLetras(intNumLetraEncontrada)
+	strCadenaFinal=cadena
+
+
+	If fnGeneraLetras(intNumLetraEncontrada)="0" Then
+	
+			intNumLetraEncontrada2= fnBuscaLetra(strletra2)+1
+			cadena =strletra1&fnGeneraLetras(intNumLetraEncontrada2)&"A"
+			strCadenaFinal=cadena
+			
+			If fnGeneraLetras(intNumLetraEncontrada2)="0"  Then
+							intNumLetraEncontrada3= fnBuscaLetra(strletra1)+1
+							cadena =fnGeneraLetras(intNumLetraEncontrada3)&"A"&"A"
+							strCadenaFinal=cadena
+			End If
+			
+	End If
+	
+fnGeneraLetrasCosecutivas= strCadenaFinal
+End Function
+
+
+
+Function fnValidaLetrasIguales(cadena)
+
+cadena=Replace(cadena," ","")
+If Len(cadena) =>3 Then
+	strletra1=mid(cadena,1,1)
+	strletra2=mid(cadena,2,1)
+	strletra3=mid(cadena,3,1)
+	
+	If InStr(1,strletra1,strletra2,1) Then
+		If InStr(1,strletra2,strletra3,1) Then
+				fnValidaLetrasIguales="3 Caracteres consecutivos"
+			Else 
+				fnValidaLetrasIguales=cadena
+		End If
+		
+		Else 
+				fnValidaLetrasIguales=cadena
+	End If
+	
+	Else 
+	print "menor"
+End If
+
+End Function
+
+
+Function fnBuscaLetra(strLetra)
+	For Iterator = 1 To 27
+	If InStr(strLetra,fnGeneraLetras(Iterator)) Then
+	fnBuscaLetra=Iterator
+		Exit for
+	End If
+	
+	Next
+End Function
+
+
+
+Function fnGeneraLetras(intLetra)
+	
+Dim intCase
+intCase=intLetra
+	Select Case intCase
+		Case  1
+			cadena="A"
+		Case 2
+			cadena="B"
+		Case 3
+			cadena="C"		
+		Case 4
+			cadena="D"	
+		Case 5
+			cadena="E"	
+		Case 6
+			cadena="F"	
+		Case 7
+			cadena="G"	
+		Case 8
+			cadena="H"	
+		Case 9
+			cadena="I"	
+		Case 10
+			cadena="J"
+		Case 11
+			cadena="K"
+		Case 12
+			cadena="L"
+		Case 13
+			cadena="M"	
+		Case 14
+			cadena="N"
+		Case 15
+			cadena="O"
+		Case 16
+			cadena="P"			
+		Case 17
+			cadena="Q"
+		Case 18
+			cadena="R"
+		Case 19
+			cadena="S"
+		Case 20
+			cadena="T"
+		Case 21
+			cadena="U"
+		Case 22
+			cadena="V"
+		Case 23
+			cadena="W"		
+		Case 24
+			cadena="X"
+		Case 25
+			cadena="Y"
+		Case 26
+			cadena="Z"
+		Case 27
+			cadena="0"
+	End Select
+fnGeneraLetras=cadena
+
+End Function
